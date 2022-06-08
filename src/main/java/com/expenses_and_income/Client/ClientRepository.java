@@ -8,4 +8,7 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("SELECT s FROM client s WHERE s.login = ?1")
     Optional<Client> findClientByLogin(String login);
+
+    @Query("SELECT s FROM client s WHERE s.password = ?1")
+    Optional<Client> findClientByPassword(Integer password);
 }

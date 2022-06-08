@@ -26,6 +26,26 @@ public class ClientController {
         clientService.addNewClient(client);
     }
 
+    @GetMapping(path = "/authorization")
+    public Client AuthorizationClient(@RequestParam String login, @RequestParam String password){
+       return clientService.getByLoginPassword(login, password.hashCode());
+    }
+
+//    @GetMapping(path = "/authorization")
+//    public Client AuthorizationClient(@RequestParam String login){
+//        return clientService.getByLogin(login);
+//    }
+
+//    @GetMapping(path = "/authorization")
+//    public Client AuthorizationClient(@RequestParam String password){
+//        return clientService.getByPassword(password.hashCode());
+//    }
+
+    @GetMapping(path = "/get{clientId}")
+    public void getClient(@RequestParam("clientId") Long id) {
+        clientService.getClientById(id);
+    }
+
     @DeleteMapping(path = "{clientId}")
     public void DeleteClient(@PathVariable("clientId") Long id) {
         clientService.deleteClient(id);
