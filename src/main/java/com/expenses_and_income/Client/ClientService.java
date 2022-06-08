@@ -27,8 +27,8 @@ public class ClientService {
         if (clientOptional.isPresent()) {
             throw new IllegalStateException("login is taken");
         }
-        //client.setPassword(client.getPassword().hashCode());
         clientRepository.save(client);
+        throw new IllegalStateException("Id of client is " + client.getId());
     }
 
     public void deleteClient(Long id) {
