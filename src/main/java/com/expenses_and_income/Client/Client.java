@@ -1,9 +1,6 @@
 package com.expenses_and_income.Client;
 
-import com.expenses_and_income.Payment.Payment;
-
 import javax.persistence.*;
-import java.util.Set;
 
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "login_unique", columnNames = "login")
@@ -36,8 +33,8 @@ public class Client {
     @Column(nullable = false)
     private Integer password;
 
-    @OneToMany(mappedBy = "client")
-    private Set<Payment> payments;
+//    @OneToMany(mappedBy = "client")
+//    private Set<Payment> payments;
 
     public Client(){}
 
