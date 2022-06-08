@@ -91,8 +91,7 @@ public class Client {
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", login='" + login + '\'' +
-                ", password=" + password +
+                ", login='" + login +
                 '}';
     }
 }

@@ -28,7 +28,7 @@ public class ClientService {
             throw new IllegalStateException("login is taken");
         }
         clientRepository.save(client);
-        throw new IllegalStateException("Id of client is " + client.getId());
+        throw new IllegalStateException("Client is added: " + client.toString());
     }
 
     public void deleteClient(Long id) {
