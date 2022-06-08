@@ -1,5 +1,4 @@
-package com.expenses_and_income;
-
+package com.expenses_and_income.Payment;
 
 import com.expenses_and_income.Client.Client;
 

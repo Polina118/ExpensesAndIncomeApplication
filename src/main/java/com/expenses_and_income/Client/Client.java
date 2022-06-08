@@ -1,6 +1,6 @@
 package com.expenses_and_income.Client;
 
-import com.expenses_and_income.Payment;
+import com.expenses_and_income.Payment.Payment;
 
 import javax.persistence.*;
 import java.util.Set;
