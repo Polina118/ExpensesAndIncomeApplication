@@ -8,8 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class ExpensesAndIncomeApplication {
-
+public class {
 	public static void main(String[] args) {
 		SpringApplication.run(ExpensesAndIncomeApplication.class, args);
 	}
