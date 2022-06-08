@@ -2,7 +2,9 @@ package com.expenses_and_income.Client;
 
 import javax.persistence.*;
 
-@Table(uniqueConstraints = {@UniqueConstraint(name = "login_unique", columnNames = "login")})
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "login_unique", columnNames = "login")
+})
 @Entity(name = "client")
 public class Client {
 
@@ -25,7 +27,7 @@ public class Client {
     @Column(nullable = false)
     private String lastname;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String login;
 
     @Column(nullable = false)
@@ -33,11 +35,11 @@ public class Client {
 
     public Client(){}
 
-    public Client(String firstname, String lastname, String login, Integer password) {
+    public Client(String firstname, String lastname, String login, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
-        this.password = password;
+        this.password = password.hashCode();
     }
 
     public Long getId() {
@@ -76,8 +78,8 @@ public class Client {
         return password;
     }
 
-    public void setPassword(Integer password) {
-        this.password = password;
+    public void setPassword(String password) {
+        this.password = password.hashCode();
     }
 
     @Override
