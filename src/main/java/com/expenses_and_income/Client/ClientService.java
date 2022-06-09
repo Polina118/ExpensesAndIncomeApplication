@@ -21,27 +21,31 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public Client getClientById(Long id){
-        Client client = clientRepository.findById(id).
-                orElseThrow(() -> new IllegalStateException(("client with id " + id + "does not exists")));
-                return client;
-    }
-
-//    public Long getClient(String login, String password){
-//        Optional<Client> optionalClient_login = clientRepository.findClientByLogin(login);
-//        Optional<Client> optionalClient_password = clientRepository.findClientByPassword(password);
-//        if (Objects.equals(optionalClient_login.isPresent(), optionalClient_password.isPresent()))
-//        return optionalClient_login.get().getId();
+//    public Client getClientById(Long id){
+//        Client client = clientRepository.findById(id).
+//                orElseThrow(() -> new IllegalStateException(("client with id " + id + "does not exists")));
+//                return client;
 //    }
 
-    public void addNewClient(Client client) {
+
+    public Client addNewClient(Client client) {
         Optional<Client> clientOptional =
                 clientRepository.findClientByLogin(client.getLogin());
         if (clientOptional.isPresent()) {
             throw new IllegalStateException("login is taken");
         }
         clientRepository.save(client);
-        throw new IllegalStateException("Client is added: " + client);
+        return client;
+    }
+
+    public Client getByLoginPassword(String login, int password) {
+        Client clientL = clientRepository.findClientByLogin(login).orElseThrow(() ->
+                new IllegalStateException(("client with login " + login + "does not exists")));
+        Client clientP = clientRepository.findClientByPassword(password).orElseThrow(() ->
+                new IllegalStateException(("client with password " + password + "does not exists")));
+        if (Objects.equals(clientL, clientP))
+            return clientL;
+        return null;
     }
 
     public void deleteClient(Long id) {
@@ -71,16 +75,6 @@ public class ClientService {
 
         if (password != null && password.length() > 0 && !Objects.equals(client.getPassword(), password.hashCode()))
             client.setPassword(password);
-    }
-
-    public Client getByLoginPassword(String login, int password) {
-        Client clientL = clientRepository.findClientByLogin(login).orElseThrow(() ->
-                new IllegalStateException(("client with login " + login + "does not exists")));
-        Client clientP = clientRepository.findClientByPassword(password).orElseThrow(() ->
-                new IllegalStateException(("client with password " + password + "does not exists")));
-        if (Objects.equals(clientL, clientP))
-            return clientL;
-        return null;
     }
 
 //    public Client getByLogin(String login) {

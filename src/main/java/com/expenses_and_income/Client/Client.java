@@ -3,8 +3,7 @@ package com.expenses_and_income.Client;
 import javax.persistence.*;
 
 @Table(uniqueConstraints = {
-        @UniqueConstraint(name = "login_unique", columnNames = "login")
-})
+        @UniqueConstraint(name = "login_unique", columnNames = "login") })
 @Entity(name = "client")
 public class Client {
 

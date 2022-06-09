@@ -21,9 +21,9 @@ public class ClientController {
         return clientService.getClients();
     }
 
-    @PostMapping(path = "/register")
-    public void RegisterNewClient(@RequestBody Client client) {
-        clientService.addNewClient(client);
+    @PostMapping(path = "/registration")
+    public Client RegisterNewClient(@RequestBody Client client) {
+        return clientService.addNewClient(client);
     }
 
     @GetMapping(path = "/authorization")
@@ -41,10 +41,10 @@ public class ClientController {
 //        return clientService.getByPassword(password.hashCode());
 //    }
 
-    @GetMapping(path = "/get{clientId}")
-    public void getClient(@RequestParam("clientId") Long id) {
-        clientService.getClientById(id);
-    }
+//    @GetMapping(path = "/get{clientId}")
+//    public void getClient(@RequestParam("clientId") Long id) {
+//        clientService.getClientById(id);
+//    }
 
     @DeleteMapping(path = "{clientId}")
     public void DeleteClient(@PathVariable("clientId") Long id) {
