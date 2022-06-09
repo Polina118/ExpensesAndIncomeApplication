@@ -22,13 +22,14 @@ public class ClientController {
     }
 
     @PostMapping(path = "/registration")
-    public Client RegisterNewClient(@RequestBody Client client) {
-        return clientService.addNewClient(client);
+    public String RegisterNewClient(@RequestBody Client client) {
+        return clientService.addNewClient(client).toString();
     }
 
-    @GetMapping(path = "/authorization")
-    public Client AuthorizationClient(@RequestParam String login, @RequestParam String password){
-       return clientService.getByLoginPassword(login, password.hashCode());
+    @PostMapping(path = "/authorization")
+    public String AuthorizationClient(@RequestBody LoginForm loginForm){
+        System.out.println("authorization");
+        return clientService.getByLoginPassword(loginForm.getLogin(), loginForm.getPassword()).toString();
     }
 
 //    @GetMapping(path = "/authorization")

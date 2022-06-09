@@ -1,20 +1,44 @@
 package com.expenses_and_income.Payment;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
+@Table
+@Entity(name = "payment")
 public class Payment {
+
+    @Id
+    @SequenceGenerator(
+            name = "payment_sequence",
+            sequenceName = "payment_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "payment_sequence"
+    )
+    @Column(updatable = false)
     private Long Id;
 
+    @Column(nullable = false)
     private Integer income;
 
+    @Column(nullable = false)
     private String direction;
 
+    @Column(name = "doc", nullable = false)
     private LocalDate date_of_create;
 
+    @Column
     private Integer months;
 
-    private Integer weeks;
+    @Column
+    private Integer days;
 
+    @Column(nullable = false)
     private Long client_id;
 
     public Payment(){}
@@ -59,19 +83,19 @@ public class Payment {
     }
 
     public Integer getMonths() {
-        return months;
+        return Period.between(this.date_of_create, LocalDate.now()).getMonths();
     }
 
     public void setMonths(Integer months) {
         this.months = months;
     }
 
-    public Integer getWeeks() {
-        return weeks;
+    public Integer getDays() {
+        return Period.between(this.date_of_create, LocalDate.now()).getDays();
     }
 
-    public void setWeeks(Integer weeks) {
-        this.weeks = weeks;
+    public void setDays(Integer days) {
+        this.days = days;
     }
 
     public Long getClient_id() {

@@ -42,7 +42,7 @@ public class ClientService {
         Client clientL = clientRepository.findClientByLogin(login).orElseThrow(() ->
                 new IllegalStateException(("client with login " + login + "does not exists")));
         Client clientP = clientRepository.findClientByPassword(password).orElseThrow(() ->
-                new IllegalStateException(("client with password " + password + "does not exists")));
+                new IllegalStateException(("client with password " + password + " does not exists")));
         if (Objects.equals(clientL, clientP))
             return clientL;
         return null;
