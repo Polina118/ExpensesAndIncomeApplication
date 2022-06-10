@@ -21,13 +21,6 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-//    public Client getClientById(Long id){
-//        Client client = clientRepository.findById(id).
-//                orElseThrow(() -> new IllegalStateException(("client with id " + id + "does not exists")));
-//                return client;
-//    }
-
-
     public Client addNewClient(Client client) {
         Optional<Client> clientOptional =
                 clientRepository.findClientByLogin(client.getLogin());

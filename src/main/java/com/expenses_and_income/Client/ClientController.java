@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping(path = "/api/v1/client")
+@CrossOrigin
 public class ClientController {
 
     private final ClientService clientService;
@@ -22,30 +23,15 @@ public class ClientController {
     }
 
     @PostMapping(path = "/registration")
-    public String RegisterNewClient(@RequestBody Client client) {
-        return clientService.addNewClient(client).toString();
+    public Client RegisterNewClient(@RequestBody Client client) {
+        return clientService.addNewClient(client);
     }
 
     @PostMapping(path = "/authorization")
-    public String AuthorizationClient(@RequestBody LoginForm loginForm){
-        System.out.println("authorization");
-        return clientService.getByLoginPassword(loginForm.getLogin(), loginForm.getPassword()).toString();
+    public Client AuthorizationClient(@RequestBody LoginForm loginForm){
+        return clientService.getByLoginPassword(loginForm.getLogin(), loginForm.getPassword());
     }
 
-//    @GetMapping(path = "/authorization")
-//    public Client AuthorizationClient(@RequestParam String login){
-//        return clientService.getByLogin(login);
-//    }
-
-//    @GetMapping(path = "/authorization")
-//    public Client AuthorizationClient(@RequestParam String password){
-//        return clientService.getByPassword(password.hashCode());
-//    }
-
-//    @GetMapping(path = "/get{clientId}")
-//    public void getClient(@RequestParam("clientId") Long id) {
-//        clientService.getClientById(id);
-//    }
 
     @DeleteMapping(path = "{clientId}")
     public void DeleteClient(@PathVariable("clientId") Long id) {
