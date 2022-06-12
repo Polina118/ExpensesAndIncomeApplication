@@ -16,36 +16,38 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-
     @GetMapping
-    public List<Client> getStudents() {
+    public List<Client> getClients() {
         return clientService.getClients();
     }
 
     @PostMapping(path = "/registration")
+    @ResponseBody
     public Client RegisterNewClient(@RequestBody Client client) {
-        return clientService.addNewClient(client);
+        clientService.addNewClient(client);
+        return new Client(client.getId(), client.getFirstname(), client.getLastname(), client.getLogin());
     }
 
     @PostMapping(path = "/authorization")
+    @ResponseBody
     public Client AuthorizationClient(@RequestBody LoginForm loginForm){
-        return clientService.getByLoginPassword(loginForm.getLogin(), loginForm.getPassword());
+        Client client = clientService.getByLogin(loginForm.getLogin());
+        return new Client(client.getId(), client.getFirstname(), client.getLastname(), client.getLogin());
     }
-
 
     @DeleteMapping(path = "{clientId}")
     public void DeleteClient(@PathVariable("clientId") Long id) {
         clientService.deleteClient(id);
     }
 
-    @PutMapping(path = "{clientId}")
-    public void UpdateClient(
-            @PathVariable("clientId") Long Id,
-            @RequestParam(required = false) String firstname,
-            @RequestParam(required = false) String lastname,
-            @RequestParam(required = false) String login,
-            @RequestParam(required = false) String password) {
-        clientService.updateClient(Id, firstname, lastname, login, password);
-    }
+//    @PutMapping(path = "{clientId}")
+//    public void UpdateClient(
+//            @PathVariable("clientId") Long Id,
+//            @RequestParam(required = false) String firstname,
+//            @RequestParam(required = false) String lastname,
+//            @RequestParam(required = false) String login,
+//            @RequestParam(required = false) String password) {
+//        clientService.updateClient(Id, firstname, lastname, login, password);
+//    }
 }
 

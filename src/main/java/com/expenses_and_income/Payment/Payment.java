@@ -1,5 +1,7 @@
 package com.expenses_and_income.Payment;
 
+import com.expenses_and_income.Client.Client;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.*;
@@ -29,25 +31,19 @@ public class Payment {
     @Column(nullable = false)
     private String direction;
 
-    @Column(name = "doc", nullable = false)
+    @Column(nullable = false)
     private LocalDate date_of_create;
-
-    @Column
-    private Integer months;
-
-    @Column
-    private Integer days;
 
     @Column(nullable = false)
     private Long client_id;
 
     public Payment(){}
 
-    public Payment(Integer income, String direction, LocalDate date_of_create, Long client_id) {
+    public Payment(Integer income, String direction, LocalDate date_of_create, Long client) {
         this.income = income;
         this.direction = direction;
         this.date_of_create = date_of_create;
-        this.client_id = client_id;
+        this.client_id = client;
     }
 
     public Long getId() {
@@ -86,16 +82,8 @@ public class Payment {
         return Period.between(this.date_of_create, LocalDate.now()).getMonths();
     }
 
-    public void setMonths(Integer months) {
-        this.months = months;
-    }
-
     public Integer getDays() {
         return Period.between(this.date_of_create, LocalDate.now()).getDays();
-    }
-
-    public void setDays(Integer days) {
-        this.days = days;
     }
 
     public Long getClient_id() {
