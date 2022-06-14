@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
+
 @RestController
 @RequestMapping(path = "/api/v1/client")
-@CrossOrigin
+@CrossOrigin()
 public class ClientController {
 
     private final ClientService clientService;
@@ -25,14 +27,22 @@ public class ClientController {
     @ResponseBody
     public Client RegisterNewClient(@RequestBody Client client) {
         clientService.addNewClient(client);
-        return new Client(client.getId(), client.getFirstname(), client.getLastname(), client.getLogin());
+        return new Client(
+                client.getId(),
+                client.getFirstname(),
+                client.getLastname());
     }
 
     @PostMapping(path = "/authorization")
     @ResponseBody
     public Client AuthorizationClient(@RequestBody LoginForm loginForm){
         Client client = clientService.getByLogin(loginForm.getLogin());
-        return new Client(client.getId(), client.getFirstname(), client.getLastname(), client.getLogin());
+        if(!Objects.equals(client.getPassword(), loginForm.getPassword()))
+            throw new IllegalStateException((" --!incorrect password!-- "));
+        return new Client(
+                client.getId(),
+                client.getFirstname(),
+                client.getLastname());
     }
 
     @DeleteMapping(path = "{clientId}")

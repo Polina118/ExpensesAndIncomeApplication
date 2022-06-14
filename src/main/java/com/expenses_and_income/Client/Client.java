@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -40,12 +41,20 @@ public class Client {
     @Column(nullable = false)
     private Integer password;
 
+    @Column(nullable = false)
+    private LocalDate date_of_create;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    private List<Payment> payments;
+
     public Client(){}
 
     public Client(String firstname, String lastname, String login, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
+        this.date_of_create = LocalDate.now();
         this.password = password.hashCode();
     }
 
@@ -54,14 +63,14 @@ public class Client {
         this.lastname = lastname;
         this.login = login;
         this.password = password.hashCode();
-        //this.payments = pays;
+        this.payments = pays;
     }
 
-    public Client(Long id, String firstname, String lastname, String login) {
+    public Client(Long id, String firstname, String lastname) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.login = login;;
+        this.login = login;
     }
 
     public Long getId() {
@@ -102,6 +111,26 @@ public class Client {
 
     public void setPassword(String password) {
         this.password = password.hashCode();
+    }
+
+//    public LocalDate getDate_of_create(){
+//        return date_of_create;
+//    }
+
+    public void setDate_of_create(LocalDate date){
+        this.date_of_create = date;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public void addPayment(Payment payment){
+        this.payments.add(payment);
     }
 
     @Override

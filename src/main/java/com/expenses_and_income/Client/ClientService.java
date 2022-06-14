@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -25,6 +26,7 @@ public class ClientService {
                 clientRepository.findClientByLogin(client.getLogin());
         if (clientOptional.isPresent())
             throw new IllegalStateException("login is taken");
+        client.setDate_of_create(LocalDate.now());
         clientRepository.save(client);
     }
 
@@ -36,9 +38,8 @@ public class ClientService {
 
     public void deleteClient(Long id) {
         boolean exists = clientRepository.existsById(id);
-        if (!exists) {
-            throw new IllegalStateException("client with id " + id + "does not exists");
-        }
+        if (!exists)
+            throw new IllegalStateException("client with id " + id + " does not exists");
         clientRepository.deleteById(id);
     }
 

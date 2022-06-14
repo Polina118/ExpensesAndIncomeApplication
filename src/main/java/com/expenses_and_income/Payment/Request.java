@@ -1,30 +1,32 @@
 package com.expenses_and_income.Payment;
 
+import java.time.LocalDate;
+
 public class Request {
 
-    private Integer income;
-    private String direction;
+    private Integer year;
+    private String status;
     private Long client_id;
 
     public Request(){}
 
-    public Request(Integer income, String direction, Long client_id) {
-        this.income = income;
-        this.direction = direction;
+    public Request(Integer year, String status, Long client_id) {
+        this.year = year;
+        this.status = status;
         this.client_id = client_id;
     }
 
-    public Request(Integer income, String direction) {
-        this.income = income;
-        this.direction = direction;
+    public Request(Integer year, String status) {
+        this.year = year;
+        this.status = status;
     }
 
-    public Integer getIncome() {
-        return income;
+    public Integer getYear() {
+        return year;
     }
 
-    public String getDirection() {
-        return direction;
+    public String getStatus() {
+        return status;
     }
 
     public Long getClient_id(){

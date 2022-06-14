@@ -26,71 +26,61 @@ public class Payment {
     private Long Id;
 
     @Column(nullable = false)
-    private Integer income;
+    private Integer sum;
+
+    @Column(nullable = false)
+    private String status = "";
 
     @Column(nullable = false)
     private String direction;
 
     @Column(nullable = false)
-    private LocalDate date_of_create;
+    private final LocalDate date_of_create = LocalDate.now();
 
     @Column(nullable = false)
+    private final Integer year = date_of_create.getYear();
+
     private Long client_id;
 
-    public Payment(){}
+    public Payment() {
+    }
 
-    public Payment(Integer income, String direction, LocalDate date_of_create, Long client) {
-        this.income = income;
+    public Payment(Integer sum, String status, String direction, Integer client_id) {
+        this.sum = sum;
+        this.status = status;
         this.direction = direction;
-        this.date_of_create = date_of_create;
-        this.client_id = client;
+        this.client_id = Long.valueOf(client_id);
     }
 
-    public Long getId() {
-        return Id;
+    public Integer getSum() {
+        return sum;
     }
 
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public Integer getIncome() {
-        return income;
-    }
-
-    public void setIncome(Integer income) {
-        this.income = income;
+    public void setSum(Integer sum) {
+        this.sum = sum;
     }
 
     public String getDirection() {
         return direction;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
-    public LocalDate getDate_of_create() {
+    public LocalDate getDate_of_create(){
         return date_of_create;
     }
 
-    public void setDate_of_create(LocalDate date_of_create) {
-        this.date_of_create = date_of_create;
-    }
+//    public Integer getMonth() {
+//        return date_of_create.getMonth().getValue();
+//    }
+//
+//    public Integer getDays(){
+//        return Period.between(LocalDate.now(), date_of_create).getDays();
+//    }
 
-    public Integer getMonths() {
-        return Period.between(this.date_of_create, LocalDate.now()).getMonths();
-    }
-
-    public Integer getDays() {
-        return Period.between(this.date_of_create, LocalDate.now()).getDays();
+    public Integer getWeeks(){
+        return (Period.between(LocalDate.now(), date_of_create).getDays()) / 7;
     }
 
     public Long getClient_id() {
         return client_id;
-    }
-
-    public void setClient_id(Long client_id) {
-        this.client_id = client_id;
     }
 }
