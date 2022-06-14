@@ -3,6 +3,7 @@ package com.expenses_and_income.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,12 +26,13 @@ public class ClientController {
 
     @PostMapping(path = "/registration")
     @ResponseBody
-    public Client RegisterNewClient(@RequestBody Client client) {
+    public String RegisterNewClient(@RequestBody Client client) {
         clientService.addNewClient(client);
-        return new Client(
-                client.getId(),
-                client.getFirstname(),
-                client.getLastname());
+        return "Success";
+//        return new Client(
+//                client.getId(),
+//                client.getFirstname(),
+//                client.getLastname());
     }
 
     @PostMapping(path = "/authorization")
@@ -45,9 +47,10 @@ public class ClientController {
                 client.getLastname());
     }
 
-    @DeleteMapping(path = "{clientId}")
-    public void DeleteClient(@PathVariable("clientId") Long id) {
+    @DeleteMapping(path = "/delete{id}")
+    public String DeleteClient(@PathVariable("id") Long id) {
         clientService.deleteClient(id);
+        return "Deleted";
     }
 
 //    @PutMapping(path = "{clientId}")

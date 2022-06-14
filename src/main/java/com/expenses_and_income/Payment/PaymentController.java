@@ -40,10 +40,11 @@ public class PaymentController {
     }
 
     @DeleteMapping(path = "{payId}")
-    public void DeletePayment(@PathVariable("payId") Long id) {
+    public String DeletePayment(@PathVariable("payId") Long id) {
         boolean exists = clientRepository.existsById(id);
         if (!exists)
             throw new IllegalStateException("payment with id " + id + "does not exists");
         paymentRepository.deleteById(id);
+        return "Deleted";
     }
 }
