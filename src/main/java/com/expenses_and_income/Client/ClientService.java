@@ -22,45 +22,20 @@ public class ClientService {
     }
 
     public void addNewClient(Client client) {
-        Optional<Client> clientOptional =
-                clientRepository.findClientByLogin(client.getLogin());
+        Optional<Client> clientOptional = clientRepository.findClientByLogin(client.getLogin());
         if (clientOptional.isPresent())
             throw new IllegalStateException("login is taken");
-        client.setDate_of_create(LocalDate.now());
         clientRepository.save(client);
     }
 
     public Client getByLogin(String login) {
-        Client client = clientRepository.findClientByLogin(login).orElseThrow(() ->
-                new IllegalStateException((" --!incorrect login!-- ")));
-            return client;
+        return clientRepository.findClientByLogin(login).
+                orElseThrow(() -> new IllegalStateException((" --!incorrect login!-- ")));
     }
 
     public void deleteClient(Long id) {
-        boolean exists = clientRepository.existsById(id);
-        if (!exists)
+        if (!clientRepository.existsById(id))
             throw new IllegalStateException("client with id " + id + " does not exists");
         clientRepository.deleteById(id);
     }
-
-//    @Transactional
-//    public void updateClient(Long Id, String firstname, String lastname, String login, String password) {
-//        Client client = clientRepository.findById(Id).
-//                orElseThrow(() -> new IllegalStateException(("client with id " + Id + "does not exists")));
-//        if (firstname != null && firstname.length() > 0 && !Objects.equals(client.getFirstname(), firstname))
-//            client.setFirstname(firstname);
-//
-//        if (lastname != null && lastname.length() > 0 && !Objects.equals(client.getLastname(), lastname))
-//            client.setLastname(lastname);
-//
-//        if (login != null && login.length() > 0 && !Objects.equals(client.getLogin(), login)) {
-//            Optional<Client> optionalClient = clientRepository.findClientByLogin(login);
-//            if (optionalClient.isPresent())
-//                throw new IllegalStateException("login taken");
-//            client.setLogin(login);
-//        }
-//
-//        if (password != null && password.length() > 0 && !Objects.equals(client.getPassword(), password.hashCode()))
-//            client.setPassword(password);
-//    }
 }

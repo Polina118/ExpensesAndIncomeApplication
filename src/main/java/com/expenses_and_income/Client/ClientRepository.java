@@ -9,4 +9,3 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("SELECT c FROM client c WHERE c.login = ?1")
     Optional<Client> findClientByLogin(String login);
 }
-// s.id, s.firstname, s.lastname, s.login

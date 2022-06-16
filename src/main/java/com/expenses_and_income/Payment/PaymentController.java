@@ -22,22 +22,27 @@ public class PaymentController {
         this.clientRepository = clientRepository;
     }
 
+    @PostMapping(path = "/getinfo{clientid}")
+    public List<Payment> getInfo(@PathVariable("clientid") Long clienid){
+        return paymentRepository.findAllByClientId(clienid);
+    }
+
     @PostMapping("/addingPayment")
     public String addPay(@RequestBody Payment payment){
         Client client = clientRepository.findById(payment.getClient_id()).orElseThrow(() ->
                 new IllegalStateException((" --!incorrect client id!-- ")));
         paymentRepository.save(payment);
         client.addPayment(payment);
-        return "added payment with client_id " + payment.getClient_id();
+        return "added payment with id " + payment.getId();
     }
 
-    @PostMapping("/finding")
-    public List<Payment> Find(@RequestBody Request request){
-        return paymentRepository.findAllByRequest(
-                request.getStatus(),
-                request.getClient_id(),
-                request.getYear());
-    }
+//    @PostMapping("/finding")
+//    public List<Payment> Find(@RequestBody Request request){
+//        return paymentRepository.findAllByRequest(
+//                request.getStatus(),
+//                request.getClient_id(),
+//                request.getYear());
+//    }
 
     @DeleteMapping(path = "{payId}")
     public String DeletePayment(@PathVariable("payId") Long id) {

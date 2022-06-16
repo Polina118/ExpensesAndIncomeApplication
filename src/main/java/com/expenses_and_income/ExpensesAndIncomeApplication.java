@@ -35,15 +35,6 @@ public class ExpensesAndIncomeApplication {
 			clientRepository.saveAll(List.of(polina, serg));
 		};
 	}
-//	@Bean
-//	public WebMvcConfigurer configurer(){
-//		return new WebMvcConfigurerAdapter() {
-//			@Override
-//			public void addCorsMappings(CorsRegistry registry) {
-//			registry.addMapping("/**").allowedOrigins("http://localhost:3000");
-//			}
-//		};
-//	}
 }
 
 

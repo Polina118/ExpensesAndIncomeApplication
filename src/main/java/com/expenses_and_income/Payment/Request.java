@@ -1,7 +1,5 @@
 package com.expenses_and_income.Payment;
 
-import java.time.LocalDate;
-
 public class Request {
 
     private Integer year;

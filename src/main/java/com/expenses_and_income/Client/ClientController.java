@@ -29,10 +29,6 @@ public class ClientController {
     public String RegisterNewClient(@RequestBody Client client) {
         clientService.addNewClient(client);
         return "Success";
-//        return new Client(
-//                client.getId(),
-//                client.getFirstname(),
-//                client.getLastname());
     }
 
     @PostMapping(path = "/authorization")
@@ -52,15 +48,5 @@ public class ClientController {
         clientService.deleteClient(id);
         return "Deleted";
     }
-
-//    @PutMapping(path = "{clientId}")
-//    public void UpdateClient(
-//            @PathVariable("clientId") Long Id,
-//            @RequestParam(required = false) String firstname,
-//            @RequestParam(required = false) String lastname,
-//            @RequestParam(required = false) String login,
-//            @RequestParam(required = false) String password) {
-//        clientService.updateClient(Id, firstname, lastname, login, password);
-//    }
 }
 

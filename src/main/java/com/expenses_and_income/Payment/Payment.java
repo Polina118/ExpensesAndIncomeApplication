@@ -1,6 +1,7 @@
 package com.expenses_and_income.Payment;
 
 import com.expenses_and_income.Client.Client;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Payment {
     private Integer sum;
 
     @Column(nullable = false)
-    private String status = "";
+    private String status;
 
     @Column(nullable = false)
     private String direction;
@@ -37,13 +38,9 @@ public class Payment {
     @Column(nullable = false)
     private final LocalDate date_of_create = LocalDate.now();
 
-    @Column(nullable = false)
-    private final Integer year = date_of_create.getYear();
-
     private Long client_id;
 
-    public Payment() {
-    }
+    public Payment(){}
 
     public Payment(Integer sum, String status, String direction, Integer client_id) {
         this.sum = sum;
@@ -52,12 +49,12 @@ public class Payment {
         this.client_id = Long.valueOf(client_id);
     }
 
-    public Integer getSum() {
-        return sum;
+    public Long getId() {
+        return Id;
     }
 
-    public void setSum(Integer sum) {
-        this.sum = sum;
+    public Integer getSum() {
+        return sum;
     }
 
     public String getDirection() {
@@ -68,16 +65,8 @@ public class Payment {
         return date_of_create;
     }
 
-//    public Integer getMonth() {
-//        return date_of_create.getMonth().getValue();
-//    }
-//
-//    public Integer getDays(){
-//        return Period.between(LocalDate.now(), date_of_create).getDays();
-//    }
-
-    public Integer getWeeks(){
-        return (Period.between(LocalDate.now(), date_of_create).getDays()) / 7;
+    public String getStatus() {
+        return status;
     }
 
     public Long getClient_id() {
