@@ -45,8 +45,8 @@ public class PaymentController {
 //    }
 
     @DeleteMapping(path = "{payId}")
-    public String DeletePayment(@PathVariable("payId") Long id) {
-        boolean exists = clientRepository.existsById(id);
+    public String deletePayment(@PathVariable("payId") Long id) {
+        boolean exists = paymentRepository.existsById(id);
         if (!exists)
             throw new IllegalStateException("payment with id " + id + "does not exists");
         paymentRepository.deleteById(id);

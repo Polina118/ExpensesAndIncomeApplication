@@ -36,7 +36,7 @@ public class Payment {
     private String direction;
 
     @Column(nullable = false)
-    private final LocalDate date_of_create = LocalDate.now();
+    private LocalDate date_of_create = LocalDate.now();
 
     private Long client_id;
 
@@ -63,6 +63,10 @@ public class Payment {
 
     public LocalDate getDate_of_create(){
         return date_of_create;
+    }
+
+    public void setDate_of_create(LocalDate date){
+        this.date_of_create = date;
     }
 
     public String getStatus() {

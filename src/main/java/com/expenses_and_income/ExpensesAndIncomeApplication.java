@@ -27,9 +27,12 @@ public class ExpensesAndIncomeApplication {
 			Client polina = new Client("Polina", "Guk", "pg@inbox.ru", "12");
 			Client serg = new Client("Sergey", "Chaliy", "s@inbox.ru", "gfjnb");
 
-			Payment pay1 = new Payment(300, "expense", "связь",1);
-			Payment pay2 = new Payment(2000,"income", "зарплата",1);
-			Payment pay3 = new Payment(100,"expense", "супермаркет", 1);
+			Payment pay1 = new Payment(60, "expense", "Транспорт",1);
+			Payment pay2 = new Payment(2000,"income", "Зарплата",1);
+			Payment pay3 = new Payment(100,"expense", "Супермаркеты", 1);
+
+			pay1.setDate_of_create(LocalDate.of(2022, LocalDate.now().getMonth(), 1));
+			pay3.setDate_of_create(LocalDate.of(2022, LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()-3));
 
 			polina.setPayments(List.of(pay1, pay2, pay3));
 			clientRepository.saveAll(List.of(polina, serg));
