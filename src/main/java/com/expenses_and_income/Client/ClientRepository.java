@@ -8,4 +8,10 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("SELECT c FROM client c WHERE c.login = ?1")
     Optional<Client> findClientByLogin(String login);
+
+    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN " +
+            "TRUE ELSE FALSE END " +
+            "FROM client c " +
+            "WHERE c.login=?1")
+    Boolean selectExistsEmail(String email);
 }
