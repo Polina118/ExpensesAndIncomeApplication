@@ -16,7 +16,7 @@ public class LoginForm {
         return login;
     }
 
-    public Integer getPassword(){
-        return password.hashCode();
+    public String getPassword(){
+        return password;
     }
 }

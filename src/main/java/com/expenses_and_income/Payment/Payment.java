@@ -1,13 +1,9 @@
 package com.expenses_and_income.Payment;
 
-import com.expenses_and_income.Client.Client;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.Period;
 
 @Table
 @Entity(name = "payment")

@@ -2,8 +2,6 @@ package com.expenses_and_income.Client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,9 +31,9 @@ public class ClientController {
 
     @PostMapping(path = "/authorization")
     @ResponseBody
-    public Client AuthorizationClient(@RequestBody LoginForm loginForm){
+    public Client AuthorizationClient(@RequestBody LoginForm loginForm) {
         Client client = clientService.getByLogin(loginForm.getLogin());
-        if(!Objects.equals(client.getPassword(), loginForm.getPassword()))
+        if (!Objects.equals(client.getPassword(), loginForm.getPassword()))
             throw new IllegalStateException((" --!incorrect password!-- "));
         return new Client(
                 client.getId(),

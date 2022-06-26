@@ -12,7 +12,12 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,6 +52,21 @@ class ClientServiceTest {
 
         Client captorValue = clientArgumentCaptor.getValue();
         assertThat(captorValue).isEqualTo(client);
+    }
+
+    @Test
+    void throwWhenLoginIsTaken(){
+        //given
+        Client client = new Client("kamila", "Mur", "k@google.com", "mur");
+        given(repository.selectExistsEmail(anyString())).willReturn(true);
+
+        //when
+        //then
+        assertThatThrownBy(()-> service.addNewClient(client))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("login is taken");
+
+        verify(repository, never()).save(any());
     }
 
     @Test

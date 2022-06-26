@@ -3,11 +3,8 @@ package com.expenses_and_income.Client;
 import com.expenses_and_income.Payment.Payment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "login_unique", columnNames = "login") })
@@ -39,7 +36,7 @@ public class Client {
     private String login;
 
     @Column(nullable = false)
-    private Integer password;
+    private String password;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
@@ -51,7 +48,7 @@ public class Client {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
-        this.password = password.hashCode();
+        this.password = password;
     }
 
     public Client(Long id, String firstname, String lastname) {
@@ -76,7 +73,7 @@ public class Client {
         return login;
     }
 
-    public Integer getPassword() {
+    public String getPassword() {
         return password;
     }
 

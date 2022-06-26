@@ -4,9 +4,7 @@ import com.expenses_and_income.Client.Client;
 import com.expenses_and_income.Client.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/v1/client/pay")
@@ -43,5 +41,10 @@ public class PaymentController {
             throw new IllegalStateException("payment with id " + id + "does not exists");
         paymentRepository.deleteById(id);
         return "Deleted";
+    }
+
+    @GetMapping(path = "/sortByDirection")
+    public List<Payment> Sort(@RequestBody Request request){
+        return paymentRepository.findAllByDirection(request.getDirection(), request.getClient_id());
     }
 }
