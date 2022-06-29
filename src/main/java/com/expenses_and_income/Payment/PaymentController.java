@@ -47,4 +47,11 @@ public class PaymentController {
     public List<Payment> Sort(@RequestBody Request request){
         return paymentRepository.findAllByDirection(request.getDirection(), request.getClient_id());
     }
+
+    @GetMapping(path = "/filter{clientId}")
+    public List<Payment> filterByDirection(
+            @PathVariable("clientId") Long clientId,
+            @RequestParam String direction){
+        return paymentRepository.findAllByDirection(direction, clientId);
+    }
 }
